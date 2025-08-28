@@ -10,10 +10,13 @@ const getReadEmails = emails => emails.filter(email => !email.read)
 
 const getStarredEmails = emails => emails.filter(email => email.starred)
 
+
+
 function App2BAckup() {
   const [emails, setEmails] = useState(initialEmails)
   const [hideRead, setHideRead] = useState(false)
   const [currentTab, setCurrentTab] = useState('inbox')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const unreadEmails = emails.filter(email => !email.read)
   const starredEmails = emails.filter(email => email.starred)
@@ -36,7 +39,20 @@ function App2BAckup() {
     setEmails(updatedEmails)
   }
 
-  let filteredEmails = emails
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filterEmails = (query) => {
+    if (query == "") {
+      return emails
+    }
+
+    return emails.filter(email =>
+      email.title.toLowerCase().includes(searchQuery.toLowerCase()))
+  };
+
+  let filteredEmails = filterEmails(searchQuery)
 
   if (hideRead) filteredEmails = getReadEmails(filteredEmails)
 
@@ -58,7 +74,7 @@ function App2BAckup() {
         </div>
 
         <div className="search">
-          <input className="search-bar" placeholder="Search mail" />
+          <input className="search-bar" placeholder="Search mail" value={searchQuery} onChange={handleSearch}/>
         </div>
       </header>
       <nav className="left-menu">
