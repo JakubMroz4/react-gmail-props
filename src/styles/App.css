@@ -86,6 +86,10 @@
 .email {
   display: grid;
   grid-template-columns: 30px 30px 150px 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "select star sender title"
+    "body body body body"; 
   padding: 10px;
   background-color: white;
   font-size: 0.9rem;
@@ -143,4 +147,9 @@
 
 .email .star-checkbox:checked::before {
   background-image: url(https://www.gstatic.com/images/icons/material/system/2x/star_googyellow500_20dp.png);
+}
+
+.email-body {
+  width: 95%;
+  font-weight: 300;
 }
